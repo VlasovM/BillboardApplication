@@ -1,0 +1,7 @@
+com\billboardapplication\repository\UserRepository.class
+com\billboardapplication\BillboardApplication.class
+com\billboardapplication\controller\ApiGeneralController.class
+com\billboardapplication\service\Imp\UserServiceImp.class
+com\billboardapplication\api\response\UserResponse.class
+com\billboardapplication\service\UserService.class
+com\billboardapplication\model\entity\User.class
