@@ -1,12 +1,12 @@
 package com.billboardapplication.service;
 
-import com.billboardapplication.api.response.UserResponse;
+import com.billboardapplication.api.response.UserRegisterResponse;
 import com.billboardapplication.model.entity.User;
 import com.billboardapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,18 +14,23 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserResponse registerUser(String name, String email, String password, String role) {
+    public UserRegisterResponse registerUser(String name, String email, String password, String role) {
+        UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
+
+        //TODO: make check input data (email, name, password)
+
         User user = new User();
         user.setEmail(email);
         user.setName(name);
-        user.setPassword(password);
         user.setRole(role);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(passwordEncoder.encode(password));
 
         userRepository.save(user);
 
-        UserResponse userResponse = new UserResponse();
-        userResponse.setResult(true);
-        return userResponse;
+        userRegisterResponse.set_successfully(true);
+        return userRegisterResponse;
     }
 
 }

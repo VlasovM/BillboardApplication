@@ -6,9 +6,9 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class UserResponse {
+public class UserRegisterResponse {
 
-    private boolean result;
+    private boolean is_successfully;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> errors;

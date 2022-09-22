@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
         <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
+        <imgscalr-lib.version>4.2</imgscalr-lib.version>
     </properties>
 
     <dependencies>
@@ -33,6 +34,11 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>${imgscalr-lib.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>

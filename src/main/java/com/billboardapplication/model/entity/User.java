@@ -1,6 +1,7 @@
 package com.billboardapplication.model.entity;
 
 
+import com.billboardapplication.model.enums.Role;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -33,5 +34,9 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    public Role getRole() {
+        return Role.USER;
+    }
 
 }

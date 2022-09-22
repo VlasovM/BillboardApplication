@@ -7,6 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdvertisementResponse {
 
-    private boolean result;
+    private boolean is_successfully;
 
 }

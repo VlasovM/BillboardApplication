@@ -1,8 +1,7 @@
 package com.billboardapplication.controller;
 
 import com.billboardapplication.api.request.UserRegisterRequest;
-import com.billboardapplication.api.response.UserResponse;
-import com.billboardapplication.service.AdvertisementService;
+import com.billboardapplication.api.response.UserRegisterResponse;
 import com.billboardapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,8 @@ public class ApiUserController {
 
     private final UserService userService;
 
-    @PostMapping("user")
-    public ResponseEntity<UserResponse> registerUser(@RequestBody UserRegisterRequest userRegisterRequest) {
+    @PostMapping("/register")
+    public ResponseEntity<UserRegisterResponse> registerUser(@RequestBody UserRegisterRequest userRegisterRequest) {
         return ResponseEntity.ok(userService.registerUser(
                 userRegisterRequest.getName(),
                 userRegisterRequest.getEmail(),
@@ -27,5 +26,6 @@ public class ApiUserController {
                 userRegisterRequest.getRole()
         ));
     }
+
 
 }
