@@ -14,7 +14,7 @@
     <name>BillboardApplication</name>
     <description>BillboardApplication</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>16</java.version>
         <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
         <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <imgscalr-lib.version>4.2</imgscalr-lib.version>

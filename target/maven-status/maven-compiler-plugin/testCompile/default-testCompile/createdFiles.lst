@@ -1,1 +1,5 @@
 com\billboardapplication\BillboardApplicationTests.class
+com\billboardapplication\service\LoginServiceTest.class
+com\billboardapplication\service\UserServiceTest.class
+com\billboardapplication\service\CommentServiceTest.class
+com\billboardapplication\service\AdvertisementServiceTest.class
