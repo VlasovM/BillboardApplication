@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @Service
@@ -23,14 +22,15 @@ public class LoginService {
 
     private final AuthenticationManager authenticationManager;
 
-    public LoginResponse checkUser(Principal principal) {
+    public LoginResponse checkUser() {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         LoginResponse loginResponse = new LoginResponse();
-        if (principal == null) {
+        if (!userEmail.equals("anonymousUser")) {
+            loginResponse.setCurrentUser(userEmail);
+            loginResponse.set_successfully(true);
             return loginResponse;
         }
 
-        loginResponse.set_successfully(true);
-        loginResponse.setCurrentUser(principal.getName());
         return loginResponse;
     }
 

@@ -2,11 +2,13 @@ package com.billboardapplication.controller;
 
 import com.billboardapplication.api.request.CommentRequest;
 import com.billboardapplication.api.request.UserRegisterRequest;
+import com.billboardapplication.api.response.AdvertisementCommentResponse;
 import com.billboardapplication.api.response.UserRegisterResponse;
 import com.billboardapplication.service.CommentService;
 import com.billboardapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,8 @@ public class ApiUserController {
     }
 
     @PostMapping("/comment")
-    public ResponseEntity<Integer> sendComment(@RequestBody CommentRequest commentRequest) {
+    @PreAuthorize("hasAuthority('user:write')")
+    public ResponseEntity<AdvertisementCommentResponse> sendComment(@RequestBody CommentRequest commentRequest) {
         return ResponseEntity.ok(commentService.setCommentToAdvertisement(
                 commentRequest.getParentId(),
                 commentRequest.getAdvertisementId(),

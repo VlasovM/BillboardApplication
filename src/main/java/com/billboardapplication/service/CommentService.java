@@ -1,5 +1,6 @@
 package com.billboardapplication.service;
 
+import com.billboardapplication.api.response.AdvertisementCommentResponse;
 import com.billboardapplication.model.entity.Advertisement;
 import com.billboardapplication.model.entity.AdvertisementComment;
 import com.billboardapplication.model.entity.User;
@@ -19,7 +20,7 @@ public class CommentService {
     private final AdvertisementCommentRepository advertisementCommentRepository;
 
 
-    public Integer setCommentToAdvertisement(String parentId, int advertisementId, String text) {
+    public AdvertisementCommentResponse setCommentToAdvertisement(String parentId, int advertisementId, String text) {
         Advertisement advertisement = advertisementRepository.findById(advertisementId);
         User user = getCurrentUser();
 
@@ -27,16 +28,19 @@ public class CommentService {
         advertisementComment.setAdvertisement(advertisement);
         advertisementComment.setText(text);
         advertisementComment.setUser(user);
-
+        AdvertisementCommentResponse response = new AdvertisementCommentResponse();
         if (parentId == null) {
             advertisementComment.setParentId(null);
             advertisementCommentRepository.save(advertisementComment);
-            return advertisementCommentRepository.findTopByOrderById().getId();
+            response.setCommentId(advertisementCommentRepository.findTopByOrderById().getId());
+            return response;
         }
 
         advertisementComment.setParentId(parentId);
         advertisementCommentRepository.save(advertisementComment);
-        return advertisementCommentRepository.findTopByOrderById().getId();
+
+        response.setCommentId(advertisementCommentRepository.findTopByOrderById().getId());
+        return response;
 
     }
 

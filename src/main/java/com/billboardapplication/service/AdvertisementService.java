@@ -70,6 +70,8 @@ public class AdvertisementService {
         AdvertisementResponse advertisementResponse = new AdvertisementResponse();
         Advertisement advertisement = advertisementRepository.findById(advertisementId);
         advertisement.setActive((short) 0);
+        advertisementRepository.save(advertisement);
+        advertisementResponse.set_successfully(true);
         return advertisementResponse;
     }
 
@@ -109,7 +111,7 @@ public class AdvertisementService {
         File newFile = new File(path + "/" + fileName);
         ImageIO.write(newImage, imageType, newFile);
 
-        return "/" + newFile.getPath();
+        return "\\" + newFile.getPath();
     }
 
 }

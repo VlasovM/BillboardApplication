@@ -17,8 +17,6 @@ public class UserService {
     public UserRegisterResponse registerUser(String name, String email, String password, String role) {
         UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
 
-        //TODO: make check input data (email, name, password)
-
         User user = new User();
         user.setEmail(email);
         user.setName(name);

@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CommentService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.billboardapplication.service</a>
+</div>
+
+<h1>Coverage Summary for Class: CommentService (com.billboardapplication.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CommentService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.billboardapplication.service;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.billboardapplication.api.response.AdvertisementCommentResponse;
+<i class="no-highlight">4</i>&nbsp;import com.billboardapplication.model.entity.Advertisement;
+<i class="no-highlight">5</i>&nbsp;import com.billboardapplication.model.entity.AdvertisementComment;
+<i class="no-highlight">6</i>&nbsp;import com.billboardapplication.model.entity.User;
+<i class="no-highlight">7</i>&nbsp;import com.billboardapplication.repository.AdvertisementCommentRepository;
+<i class="no-highlight">8</i>&nbsp;import com.billboardapplication.repository.AdvertisementRepository;
+<i class="no-highlight">9</i>&nbsp;import com.billboardapplication.repository.UserRepository;
+<i class="no-highlight">10</i>&nbsp;import lombok.RequiredArgsConstructor;
+<i class="no-highlight">11</i>&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+<i class="no-highlight">12</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;@Service
+<b class="fc"><i class="no-highlight">15</i>&nbsp;@RequiredArgsConstructor</b>
+<i class="no-highlight">16</i>&nbsp;public class CommentService {
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    private final AdvertisementRepository advertisementRepository;
+<i class="no-highlight">19</i>&nbsp;    private final UserRepository userRepository;
+<i class="no-highlight">20</i>&nbsp;    private final AdvertisementCommentRepository advertisementCommentRepository;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;    public AdvertisementCommentResponse setCommentToAdvertisement(String parentId, int advertisementId, String text) {
+<b class="fc"><i class="no-highlight">24</i>&nbsp;        Advertisement advertisement = advertisementRepository.findById(advertisementId);</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        User user = getCurrentUser();</b>
+<i class="no-highlight">26</i>&nbsp;
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        AdvertisementComment advertisementComment = new AdvertisementComment();</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        advertisementComment.setAdvertisement(advertisement);</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        advertisementComment.setText(text);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        advertisementComment.setUser(user);</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        AdvertisementCommentResponse response = new AdvertisementCommentResponse();</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        if (parentId == null) {</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;            advertisementComment.setParentId(null);</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;            advertisementCommentRepository.save(advertisementComment);</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;            response.setCommentId(advertisementCommentRepository.findTopByOrderById().getId());</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;            return response;</b>
+<i class="no-highlight">37</i>&nbsp;        }
+<i class="no-highlight">38</i>&nbsp;
+<b class="fc"><i class="no-highlight">39</i>&nbsp;        advertisementComment.setParentId(parentId);</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;        advertisementCommentRepository.save(advertisementComment);</b>
+<i class="no-highlight">41</i>&nbsp;
+<b class="fc"><i class="no-highlight">42</i>&nbsp;        response.setCommentId(advertisementCommentRepository.findTopByOrderById().getId());</b>
+<b class="fc"><i class="no-highlight">43</i>&nbsp;        return response;</b>
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;    }
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    private User getCurrentUser() {
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        String emailUser = SecurityContextHolder.getContext().getAuthentication().getName();</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        return userRepository.findByEmail(emailUser).orElseThrow();</b>
+<i class="no-highlight">50</i>&nbsp;    }
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-09-23 15:11</div>
+</div>
+</body>
+</html>
