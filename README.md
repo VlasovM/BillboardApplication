@@ -79,11 +79,11 @@ ____
     
 Если вы поменяли переменные окружения самостоятельно, то запустить проект можно следующим образом:
 
-    java -jar jarBillboardApplication-0.0.1-SNAPSHOT.jar
+    java -jar BillboardApplication-0.0.1-SNAPSHOT.jar
     
 Если вы не меняли переменные окружения, то нужно задать их при запуске проекта:
 
-    java -jar javlasovblog-0.0.1-SNAPSHOT.jar --spring.datasource.username=<usernameDB> --spring.datasource.password=<passwordDB>
+    java -jar BillboardApplication-0.0.1-SNAPSHOT.jar --spring.datasource.username=<usernameDB> --spring.datasource.password=<passwordDB>
     
  Где:
   - usernameDB - логин локальной базы данных;
