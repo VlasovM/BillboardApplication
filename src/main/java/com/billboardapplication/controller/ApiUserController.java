@@ -1,7 +1,9 @@
 package com.billboardapplication.controller;
 
+import com.billboardapplication.api.request.CommentRequest;
 import com.billboardapplication.api.request.UserRegisterRequest;
 import com.billboardapplication.api.response.UserRegisterResponse;
+import com.billboardapplication.service.CommentService;
 import com.billboardapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiUserController {
 
     private final UserService userService;
+    private final CommentService commentService;
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponse> registerUser(@RequestBody UserRegisterRequest userRegisterRequest) {
@@ -27,5 +30,12 @@ public class ApiUserController {
         ));
     }
 
-
+    @PostMapping("/comment")
+    public ResponseEntity<Integer> sendComment(@RequestBody CommentRequest commentRequest) {
+        return ResponseEntity.ok(commentService.setCommentToAdvertisement(
+                commentRequest.getParentId(),
+                commentRequest.getAdvertisementId(),
+                commentRequest.getText()
+        ));
+    }
 }
